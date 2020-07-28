@@ -1,11 +1,16 @@
 import sys
 
 num = int(sys.stdin.readline())
-rope = []
+ropes = []
 for i in range(num):
-    rope.append(int(sys.stdin.readline()))
-rope.sort(reverse=True)
+    ropes.append(int(sys.stdin.readline()))
+ropes.sort(reverse=True)
 
 def ropeMax(ropeList):
-    ropeList
-print(num*rope[0])
+    max = 0
+    for rope in ropeList:
+        if (rope*(ropeList.index(rope)+1) > max):
+            max =  rope*(ropeList.index(rope)+1)
+    return max
+print(ropes)
+print(ropeMax(ropes))
