@@ -2,20 +2,22 @@ import sys
 
 rep = int(sys.stdin.readline())
 
-
 for _ in range(rep):
-    scores =[]
     ppl = int(sys.stdin.readline())
-    for _ in range(ppl):
-        scores.append(list(map(int, sys.stdin.readline().split())))
-
-    scores.sort(key=lambda x:x[0])
-    print(scores)
-    for score_1 in scores:
-        print(score_1)
-        for score_2 in scores[scores.index(score_1)+1:]:
-            print("score_1, score_2",score_1,score_2)
-            if score_1[1] < score_2[1]:
-                print("deleted : {}".format(score_2))
-                scores.remove(score_2)
-    print(len(scores))
+    scores = sorted([list(map(int, sys.stdin.readline().split())) for _ in range(ppl)],key= lambda x:x[0])
+    # print("========================================")
+    # print(scores)
+    count = 0
+    aMax = 100001
+    bMax = 100001
+    for score in scores:
+        if (score[0] > aMax and score[1] > bMax):
+            print("exeception")
+            continue
+        if score[0] < aMax:
+            aMax = score[0]
+        if score[1] < bMax:
+            bMax = score[1]
+        # print(score,aMax,bMax,"\n","counted",scores.index(score),"th")
+        count+=1
+    print(count)
