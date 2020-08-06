@@ -3,7 +3,7 @@ import sys
 num=["0","1","2","3","4","5","6","7","8","9"]
 
 files = list(map(str,input().replace("[","").replace("]","").replace("\"","").split(", ")))
-print(files)
+# print(files)
 
 def depart(file):
     agu1,agu2,agu3 = "","",""
@@ -30,7 +30,7 @@ def merge(x:list):
         result+=i
     return result
 
-files.sort(key=lambda x:(merge(depart(x)[0]),int(merge(depart(x)[1])),files.index(x)))
+files.sort(key=lambda x:(merge(depart(x.upper())[0]),int(merge(depart(x)[1]))))
 print(files)
 
 
