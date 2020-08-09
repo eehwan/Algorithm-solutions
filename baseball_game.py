@@ -4,10 +4,26 @@ import random
 min_lev = 1
 max_lev = 5
 
-level = int(input(f"난이도를 설정해주세요({min_lev}~{max_lev}) :\n"))
-while (level>max_lev and level<min_lev):
-    level = int(input("난이도를 다시 설정해주세요(1~10) :\n"))
+def set_level(count=0):
+    try:
+        if count==0:
+            level = int(input(f"난이도를 설정해주세요({min_lev}~{max_lev}) :\n"))
+            if (level<=max_lev and level>=min_lev):
+                return level
+            else:
+                set_level(-1)
+        else:
+            level = int(input(f"난이도를 제대로 설정해주세요({min_lev}~{max_lev}) :\n"))
+            if (level<=max_lev and level>=min_lev):
+                return level
+            else:
+                set_level(-1)
+    except:
+        print("error")
+        set_level(-1)
 
+
+level = set_level()
 answer=[]
 for _ in range(level):
     answer.append(str(random.randint(1,9)))
