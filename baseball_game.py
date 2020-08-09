@@ -4,44 +4,63 @@ import random
 min_lev = 1
 max_lev = 5
 
-def set_level(status=0):
+def set_level():
     try:
-        if status==0:
-            level = int(input(f"난이도를 설정해주세요({min_lev}~{max_lev}) :\n"))
-            if (level<=max_lev and level>=min_lev):
-                return level
-            else:
-                return set_level(-1)
+        level = int(input(f"Set level({min_lev}~{max_lev}) :\n"))
+        if (level<=max_lev and level>=min_lev):
+            return level
         else:
-            level = int(input(f"난이도를 제대로 설정해주세요({min_lev}~{max_lev}) :\n"))
-            if (level<=max_lev and level>=min_lev):
-                return level
+            print(f"--- Level must be {min_lev}~{max_lev} ---\n.")
+            return set_level()
+    except:
+        print("Wrog input\n")
+        return set_level()
+def set_answer(lev:int):
+    answer = ""
+    while len(set(list(answer))) < lev:
+        answer+=str(random.randint(1,9))
+    return answer
+def set_score(answ):
+    print(f"\nGame started !!\nGuess {len(answ)} digits from 1 to 9(unredundant)\n")
+    def score(ans):
+        try :
+            num = int(input("Input : "))
+            input_nums = list(str(num))
+            if len(input_nums)!=len(ans):
+                print("--- wrong length of input ---\n")
+                return score(ans)
+            strike = 0
+            ball = 0
+            for index, value in enumerate(input_nums):
+                if value == ans[index]:
+                    strike+=1
+                elif value in ans:
+                    ball+=1
+            print(f"{strike} strike\n{ball} ball\n")
+            if strike==len(ans):
+                print("\n < You W.I.N > \n")
             else:
-                return set_level(-1)
+                return score(ans)
+        except:
+            print(f"--- Input {len(ans)} digits ---\n")
+            score(ans)
+    try:
+        score(answ)
     except:
         print("error")
-        return set_level(-1)
+        score(answ)
+def play():
+    level = set_level()
+    answer = set_answer(level)
+    # print(answer)
+    set_score(answer)
+    ask()
+def ask():
+    do = str(input("\ndo again? (y/n): ")).upper()
+    if do == "Y":
+        print("\n---------------------\n\n\n")
+        play()
 
-level = set_level()
-
-print(level)
-answer=[]
-for _ in range(level):
-    answer.append(str(random.randint(1,9)))
-#answer#
-print("".join(answer))
-
-input_nums=[]
-while not(input_nums == answer):
-    input_nums = list(str(input("입력 : ")))
-    if len(input_nums)!=level:
-        print("잘못 입력되었습니다")
-        input_nums = list(str(input("입력 : ")))
-    strike = 0
-    ball = 0
-    for index, value in enumerate(input_nums):
-        if value in answer:
-            ball+=1
-            if value == answer[index]:
-                strike+=1
-    print(f"{strike} strike\n{ball} ball")
+def init():
+    play()
+play()
