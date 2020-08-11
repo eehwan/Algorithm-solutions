@@ -16,9 +16,11 @@ def set_level():
         print("Wrog input\n")
         return set_level()
 def set_answer(lev:int):
-    answer = ""
-    while len(set(list(answer))) < lev:
-        answer+=str(random.randint(1,9))
+    answer = []
+    while len(answer) < lev:
+        temp = str(random.randint(1,9))
+        if not(temp in answer):
+            answer.append(temp)
     return answer
 def set_score(answ):
     print(f"\nGame started !!\nGuess {len(answ)} digits from 1 to 9(unredundant)\n")
@@ -28,6 +30,9 @@ def set_score(answ):
             input_nums = list(str(num))
             if len(input_nums)!=len(ans):
                 print("--- wrong length of input ---\n")
+                return score(ans)
+            if len(set(input_nums))!=len(input_nums):
+                print("--- Input unredundant value ---\n")
                 return score(ans)
             strike = 0
             ball = 0
@@ -52,7 +57,7 @@ def set_score(answ):
 def play():
     level = set_level()
     answer = set_answer(level)
-    # print(answer)
+    print(answer)
     set_score(answer)
     ask()
 def ask():
