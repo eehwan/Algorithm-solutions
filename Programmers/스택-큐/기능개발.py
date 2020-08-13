@@ -5,12 +5,9 @@ def solution(progresses, speeds):
         temp = math.ceil((100-progresses[i])/speeds[i])
         complete_day.append(temp)
 
-    complete_day = [1,3,53,54,7,5,6,4]
-    print(complete_day)
-
     answer = []
-    min=complete_day[0]
     count = 0
+    min = complete_day[0]
     for value in complete_day:
         if value <= min:
             count += 1
