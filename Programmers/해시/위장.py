@@ -2,17 +2,14 @@ def solution(clothes):
     count_clothes={}
     for value in clothes:
         wearing_part = value[1]
-        if not(wearing_part in count_clothes.keys()):
-            count_clothes[wearing_part] = 1
-        else:
+        try:
             count_clothes[wearing_part]+=1
-    print(count_clothes)
+        except:
+            count_clothes[wearing_part] = 1
     result = 1
-    for i,(key,value) in enumerate(count_clothes.items()):
-        print(f"{key},{value}")
+    for key,value in count_clothes.items():
         result*=value+1
-    result-=1
-    return result
+    return result-1
 # from collections import Counter
 # from functools import reduce
 #
