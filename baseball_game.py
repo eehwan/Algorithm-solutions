@@ -66,6 +66,7 @@ def ask():
         print("\n---------------------\n\n\n")
         play()
 
+
 def init():
     play()
 play()
