@@ -1,23 +1,31 @@
 def solution(people, limit):
-    answer = 0
-    return answer
+    people.sort()
+    weight_in_boat = 0
+    count_boat = 0
+    for peo in people:
+        if weight_in_boat == 0:
+            weight_in_boat = peo
+        elif weight_in_boat + peo <= limit:
+            count_boat += 1
+            weight_in_boat = 0
+        else:
+            count_boat += 1
+            weight_in_boat = peo
+        print(weight_in_boat, count_boat,limit)
+    return count_boat if weight_in_boat==0 else count_boat+1
 
 test_case =\
 """
-"1924", 2
-"1231234", 3
-"4177252841", 4
-"123917415", 6
-"12398745", 5
+[70, 50, 80, 50], 100
+[70, 80, 50], 100
+[40, 40, 90, 90, 100], 180
 """
 expected_value =\
 """
-94
-"3234"
-"775841"
-"975"
-"987"
+3
+3
+3
 """
 
 
-print(solution("12398745", 5))
+print(solution([70, 50, 80, 50], 100))
