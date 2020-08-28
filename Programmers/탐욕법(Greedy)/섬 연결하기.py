@@ -1,3 +1,4 @@
+# 크루스칼 알고리즘
 def solution(n, costs):
     costs.sort(key=lambda x: x[2])
     print(costs)
