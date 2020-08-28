@@ -1,28 +1,34 @@
+# def solution(people, limit):
+#     people.sort(reverse=True)
+#     # print(people, limit)
+#     if len(people)<=1:
+#         return len(people)
+#     weight_in_boat, count_boat = 0, 0
+#     i,j = 0,0
+#     length = len(people)
+#     while i+j< length:
+#         weight_in_boat = people[i]
+#         i+=1
+#         if weight_in_boat + people[-j-1] <= limit:
+#             count_boat += 1
+#             weight_in_boat = 0
+#             j+=1
+#         else:
+#             count_boat += 1
+#             weight_in_boat = 0
+#     return count_boat
+
 def solution(people, limit):
-    people.sort(reverse=True)
-    # print(people, limit)
-    if len(people)<=1:
-        return len(people)
-    weight_in_boat, count_boat = 0, 0
-    i,j = 0,0
-    length = len(people)
-    while i+j< length:
-        weight_in_boat = people[i]
-        # print(i)
-        i+=1
-        if weight_in_boat + people[-j-1] <= limit:
-            count_boat += 1
-            weight_in_boat = 0
-            # print(-j-1)
-            j+=1
-        else:
-            count_boat += 1
-            weight_in_boat = 0
-    #     print(f"in_boat : {weight_in_boat}, count : {count_boat}, index : {i},{j}")
-    #     print("=================================")
-    # print("<last>")
-    # print(f"in_boat : {weight_in_boat}, count : {count_boat}, index : {i},{j}")
-    return count_boat
+    people.sort()
+    a, b = 0, len(people)-1
+    count = 0
+    while a<=b:
+        if people[a]+people[b]<=limit:
+            a+=1
+        b-=1
+        count+=1
+    return count
+
 
 test_case =\
 """
