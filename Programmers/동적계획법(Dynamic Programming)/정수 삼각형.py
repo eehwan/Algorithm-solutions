@@ -1,23 +1,21 @@
-def solve(triangle,m,n):
-    now = triangle[m][n]
-    # print(m,n,now)
-    if m == 0:
-        return now
-    if n == 0:
-        answer = solve(triangle,m-1,n) + now
-        # print(answer)
-        return answer
-    if n == len(triangle[m])-1:
-        answer = solve(triangle,m-1,n-1) + now
-        # print(answer)
-        return answer
-    answer = max(solve(triangle,m-1,n-1),solve(triangle,m-1,n)) + now
-    # print(answer)
-    return answer
+def solve(triangle):
+    height = len(triangle)
+    answer_list = triangle
+    for i in range(height):
+        for j in range(i+1):
+            # print(i,j)
+            if i == 0:
+                pass
+            elif j == 0:
+                answer_list[i][j] = answer_list[i-1][j] + triangle[i][j]
+            elif j == len(triangle[i])-1:
+                answer_list[i][j] = answer_list[i-1][j-1] + triangle[i][j]
+            else:
+                answer_list[i][j] = max(answer_list[i-1][j-1],answer_list[i-1][j]) + triangle[i][j]
+            # print(answer_list)
+    return answer_list
 def solution(triangle):
-    m = len(triangle)
-    n = len(triangle[-1])
-    return max(solve(triangle,m-1,i) for i in range(n))
+    return max(solve(triangle)[-1])
 
 test_case =\
 """
