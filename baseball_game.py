@@ -17,13 +17,14 @@ def set_level():
         return set_level()
 def set_answer(lev:int):
     answer = []
-    while len(answer) < lev:
-        temp = str(random.randint(1,9))
-        if not(temp in answer):
-            answer.append(temp)
+    num_list = list(range(10))
+    print(num_list)
+    random.shuffle(num_list)
+    answer.append(num_list.pop() for _ in range(3))
+    print(answer)
     return answer
 def set_score(answ):
-    print(f"\nGame started !!\nGuess {len(answ)} digits from 1 to 9(unredundant)\n")
+    print(f"\nGame started !!\nGuess {len(answ)} digits from 0 to 9(unredundant)\n")
     def score(ans):
         try :
             num = int(input("Input : "))
@@ -54,19 +55,19 @@ def set_score(answ):
     except:
         print("error")
         score(answ)
-def play():
+
+def ask():
+    do = str(input("\ndo again? (y/n): ")).upper()
+    if do == "Y":
+        print("\n---------------------\n\n\n")
+        init()
+
+
+def init():
     level = set_level()
     answer = set_answer(level)
     print(answer)
     set_score(answer)
     ask()
-def ask():
-    do = str(input("\ndo again? (y/n): ")).upper()
-    if do == "Y":
-        print("\n---------------------\n\n\n")
-        play()
 
-
-def init():
-    play()
-play()
+init()
