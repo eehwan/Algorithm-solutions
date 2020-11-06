@@ -1,29 +1,30 @@
-def isConvertable(word1, word2):
-    match_num = 0
-    for a,b in zip(word1, word2):
-        if a == b:
-            match_num += 1
-    return True if match_num == 2 else False
-def dfs(begin, target, words, visited, count):
-    stacks = [begin]
-    while stacks:
-        stack = stacks.pop()
-        if isConvertable(stack, target):
-            return count
-        for i in range(len(words)):
-            if isConvertable(stack, words[i]):
-                if visited[i] == 1:
-                    continue
-                visited[i] = 1
-                stacks.append(words[i])
-                print(words[i])
-        count += 1
-    return count
+from collections import deque
 
-def solution(begin, target, words, count = 0):
+def isConvertable(word1, word2):
+    unmatch = sum(a != b for a,b in zip(word1, word2))
+    return True if unmatch == 1 else False
+
+def solution(begin, target, words):
     if target not in words:
         return 0
-    visited = [0 for i in words]
-    return dfs(begin, target, words, visited, 0)
-
-print(solution("hit", "cog", ["hot", "dot", "dog", "lot", "log", "cog"]))
+    visited = {key:0 for key in words}
+    queue = deque()
+    queue.append(begin)
+    while queue:
+        current = queue.popleft()
+        if current == target:
+            return visited[current]
+        for word in words:
+            if visited[word] != 0:
+                continue
+            if isConvertable(current, word):
+                print(word)
+                queue.append(word)
+                try:
+                    visited[word] = visited[current] + 1
+                except:
+                    visited[word] = 1
+                print(visited)
+        print(queue)
+    return 0
+print(solution("hit", "hhh", ["hht","hhh", "dod", "dog", "lot", "cog"]))
