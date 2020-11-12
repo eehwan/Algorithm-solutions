@@ -6,6 +6,6 @@ def solution(n, times):
             if j == len(queue)-1 or (queue[j] + 1)* times[j] < (queue[j+1] + 1) * times[j+1]:
                 queue[j] += 1
                 break
-    print(queue, times)
+    # print(queue, times)
     return max(a*b for a,b in zip(queue, times))
-print(solution(6, [7, 10]))
+print(solution(6, [8, 11]))
