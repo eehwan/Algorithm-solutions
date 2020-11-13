@@ -1,11 +1,13 @@
+def canImmigrateAll(n, middle, times):
+    return sum(middle // time for time in times) >= n
 def solution(n, times):
-    times.sort(reverse = True)
-    queue = [0 for _ in range(len(times))]
-    for _ in range(n):
-        for j in range(len(queue)):
-            if j == len(queue)-1 or (queue[j] + 1)* times[j] < (queue[j+1] + 1) * times[j+1]:
-                queue[j] += 1
-                break
-    # print(queue, times)
-    return max(a*b for a,b in zip(queue, times))
+    start, end = 1, max(times) * n
+    while start <= end:
+        middle = (start + end) // 2
+        print(middle)
+        if canImmigrateAll(n, middle, times):
+            end = middle - 1
+        else:
+            start = middle + 1
+    return start
 print(solution(6, [8, 11]))
