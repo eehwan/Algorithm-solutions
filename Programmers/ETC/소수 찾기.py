@@ -1,10 +1,9 @@
-import math
 def isPrimeNum(k):
     if k < 2:
         return False
     if k == 2 or k == 3:
         return True
-    for i in range(2, math.floor(k**0.5 + 2)):
+    for i in range(2, int(k**0.5 + 2)):
         if k % i == 0:
             return False
     return True
