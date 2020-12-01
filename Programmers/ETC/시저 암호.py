@@ -1,15 +1,15 @@
 def solution(s, n):
-    alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    Alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    alphabet = "abcdefghijklmnopqrstuvwxyz"
     answer = ""
     for l in s:
         if l == " ":
             answer += " "
         else:
             if l.isupper():
-                print(alphabet.find(l)-26+n)
-                answer += alphabet[alphabet.find(l) + n - 26]
+                answer += Alphabet[Alphabet.find(l) + n - 26]
             else:
-                answer += alphabet[alphabet.find(l.upper()) + n - 26].lower()
+                answer += alphabet[alphabet.find(l) + n - 26]
     return answer
 
-print(solution("z", 1))
+print(solution("zAb", 3))
