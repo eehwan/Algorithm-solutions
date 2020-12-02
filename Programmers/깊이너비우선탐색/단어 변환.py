@@ -1,30 +1,21 @@
 from collections import deque
 
-def isConvertable(word1, word2):
-    unmatch = sum(a != b for a,b in zip(word1, word2))
-    return unmatch == 1
+def isConvertable(a, b):
+    return sum(i == j for i,j in zip(a,b)) == len(a) - 1
 
 def solution(begin, target, words):
     if target not in words:
         return 0
-    visited = {key:0 for key in words}
+    words = {key:0 for key in words}
+    words[begin] = 0
     queue = deque()
     queue.append(begin)
     while queue:
         current = queue.popleft()
-        if current == target:
-            return visited[current]
         for word in words:
-            if visited[word] != 0:
-                continue
-            if isConvertable(current, word):
-                # print(word)
+            if isConvertable(word, current) and words[word]==0:
+                words[word] = words[current] + 1
                 queue.append(word)
-                try:
-                    visited[word] = visited[current] + 1
-                except:
-                    visited[word] = 1
-                # print(visited)
-        # print(queue)
-    return 0
+    return words[target]
+
 print(solution("hit", "hhh", ["hht","hhh", "dod", "dog", "lot", "cog"]))
