@@ -1,3 +1,4 @@
+from functools import reduce
 def solution(n):
     triangle = [[0 for _ in range(i+1)] for i in range(n)]
     y, x = -1, 0
@@ -12,6 +13,6 @@ def solution(n):
                 y -= 1; x -= 1
             triangle[y][x] = number
             number += 1
-    return sum(map(sum, triangle))
+    return reduce(lambda a,b: a + b, triangle)
 
-print(solution(4))
+print(solution(5))
