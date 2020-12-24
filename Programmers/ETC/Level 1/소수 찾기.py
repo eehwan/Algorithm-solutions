@@ -7,12 +7,13 @@ def isPrimeNum(k):
         if k % i == 0:
             return False
     return True
-def solution(n):
+def solution1(n):
     answer = 0
     for i in range(1, n+1):
         if isPrimeNum(i):
             answer += 1
     return answer
+    
 def solution(n):
     nums = set(range(2, n+1))
     for i in range(2, n+1):
