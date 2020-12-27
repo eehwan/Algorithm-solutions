@@ -9,5 +9,14 @@ def solution(A, B):
             b = B.pop()
         if a < b: answer +=1; print("a: ", a, "b: ", b)
     return answer
+def solution1(A, B):
+    A.sort(); B.sort()
+    answer = 0
+    j = 0
+    for i in range(len(A)):
+        if A[j] < B[i]:
+            answer = answer + 1
+            j = j+1
+    return answer
 
 print(solution([1,2,3,4,5], [2,2,2,2,5]))
