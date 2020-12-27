@@ -8,4 +8,7 @@ def solution(s):
                 if answer < 2*j: answer = 2*j
     return answer
 
+def solution1(s):
+    return len(s) if s == s[::-1] else max(solution(s[1:]), solution(s[:-1]))
+    
 print(solution("aa"))
