@@ -11,5 +11,4 @@ def solution(n):
     hanoi(n, 1, 3, 2)
     return answer
 
-
 print(solution(3))
