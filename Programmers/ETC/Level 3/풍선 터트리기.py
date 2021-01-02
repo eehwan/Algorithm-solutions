@@ -1,7 +1,6 @@
-import sys
 def solution(a):
     result = [False for _ in a]
-    minFront, minRear = sys.maxsize, sys.maxsize
+    minFront, minRear = float("inf"), float("inf")
     for i in range(len(a)):
         if a[i] < minFront:
             minFront = a[i]
