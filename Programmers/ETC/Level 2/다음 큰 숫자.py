@@ -1,7 +1,7 @@
+import sys
 def solution(n):
-    answer = n + 1 
-    while bin(answer).count("1") != bin(n).count("1"):
-        answer += 1
-    return answer
+    for x in range(n+1, sys.maxsize):
+        if bin(x).count("1") == bin(n).count("1"):
+            return x 
 
-print(solution(15))
+print(solution(78))
