@@ -1,9 +1,12 @@
-from itertools import permutations
+import math
 def solution(n, k):
-    i = 0
-    for a, b, c in permutations([i for i in range(1, n+1)], n):
-        i += 1
-        if i == k:
-            return [a, b, c]
+    Nums = list(range(1, n+1))
+    Answer = []
+    while n != 0:
+        temp = math.factorial(n-1)
+        Index, k = (k-1)//temp, k%temp
+        Answer.append(Nums.pop(Index))
+        n -= 1
+    return Answer
 
 print(solution(3, 5))
