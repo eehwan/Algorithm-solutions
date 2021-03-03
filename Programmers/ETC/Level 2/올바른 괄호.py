@@ -6,4 +6,4 @@ def solution(s):
         else:
             try: queue.pop()
             except: return False
-    return len(queue)==0 and True or False
+    return len(queue)==0
