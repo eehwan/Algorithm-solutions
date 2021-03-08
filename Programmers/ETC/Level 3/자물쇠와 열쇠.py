@@ -52,3 +52,28 @@ def solution(key, lock):
             # print("isUnlocked\n",expendedMap)
             return True
     return False
+    
+# numpy를 이용한 풀이
+
+# import numpy as np
+
+# def zip_rotate(original):
+#     rotated = np.array(list(zip(*original[::-1])))
+#     return rotated
+
+# def solution(key, lock):
+#     key = np.array(key)
+#     lock = np.array(lock)
+#     lock_pad = np.pad(lock,((key.shape[0]-1,key.shape[0]-1),(key.shape[0]-1,key.shape[0]-1)),'constant',constant_values=0)
+#     for k in range(4):
+#         key = zip_rotate(key)
+#         for i in range(0,lock.shape[0]+key.shape[0]-1):
+#             for j in range(0,lock.shape[0]+key.shape[0]-1):
+#                 lock_pad_copy = lock_pad.copy()
+#                 lock_pad_copy[i:(i+key.shape[0]),j:(j+key.shape[0])] = lock_pad[i:(i+key.shape[0]),j:(j+key.shape[0])] + key
+
+#                 lock_main = lock_pad_copy[(key.shape[0]-1):(lock_pad.shape[0]-key.shape[0]+1),(key.shape[0]-1):(lock_pad.shape[0]-key.shape[0]+1)]
+#                 lock_main = lock_main==1
+#                 if (sum(map(sum,lock_main))==lock.shape[0]**2):
+#                     return(True)
+#     return(False)
