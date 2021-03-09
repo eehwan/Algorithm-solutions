@@ -1,12 +1,12 @@
 from copy import deepcopy
 
-def expendArray(array, m, n): # array 가장자리에 각각 m만큼 0 추가
+def expendArray(array, keySize, lockSize): # array 가장자리에 각각 keySize만큼 0 추가
     newArray = array
-    for i in range(n):
-        newArray[i] = [0 for _ in range(m)] + newArray[i] + [0 for _ in range(m)]
-    for _ in range(m):
-        newArray.insert(0, [0 for _ in range(n + 2*m)])
-        newArray.append([0 for _ in range(n + 2*m)])
+    for i in range(lockSize):
+        newArray[i] = [0 for _ in range(keySize)] + newArray[i] + [0 for _ in range(keySize)]
+    for _ in range(keySize):
+        newArray.insert(0, [0 for _ in range(lockSize + 2*keySize)])
+        newArray.append([0 for _ in range(lockSize + 2*keySize)])
     return newArray
 
 def rotateArray(array): # 90도 회전
@@ -19,18 +19,18 @@ def rotateArray(array): # 90도 회전
         newArray.append(temp)
     return newArray
 
-def isUnlock(key, expendedMap, m, n): # key를 놓을 수 있는 모든 위치를 돌며 체크
-    for startX in range(m+n):
-        for startY in range(m+n):
+def isUnlock(key, expendedMap, keySize, lockSize): # key를 놓을 수 있는 모든 위치를 돌며 체크
+    for startX in range(keySize+lockSize):
+        for startY in range(keySize+lockSize):
             temp = deepcopy(expendedMap)
-            for i in range(m):
-                for j in range(m):
+            for i in range(keySize):
+                for j in range(keySize):
                     temp[startX+i][startY+j] += key[i][j]
             # print(f"key + expendedMap ({startX}, {startY}):\n{temp}")
             isUnlocked = True
-            for i in range(n):
-                for j in range(n):
-                    if temp[m+i][m+j] != 1:
+            for i in range(lockSize):
+                for j in range(lockSize):
+                    if temp[keySize+i][keySize+j] != 1:
                         isUnlocked = False
                         break
                 if isUnlocked == False:
@@ -40,15 +40,15 @@ def isUnlock(key, expendedMap, m, n): # key를 놓을 수 있는 모든 위치�
     return False
 
 def solution(key, lock):
-    m = len(key)
-    n = len(lock)
+    keySize = len(key)
+    lockSize = len(lock)
     rotatedKey = key
-    expendedMap = expendArray(lock, m, n)
+    expendedMap = expendArray(lock, keySize, lockSize)
     for k in range(4):
         rotatedKey = rotateArray(rotatedKey)
         # print(f"rotated: {k}")
         # print("rotatedKey :\n", rotatedKey)
-        if isUnlock(rotatedKey, expendedMap, m, n):
+        if isUnlock(rotatedKey, expendedMap, keySize, lockSize):
             # print("isUnlocked\n",expendedMap)
             return True
     return False
