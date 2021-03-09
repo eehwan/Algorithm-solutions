@@ -3,25 +3,31 @@ from copy import deepcopy
 def expendArray(array, keySize, lockSize): # array 가장자리에 각각 keySize만큼 0 추가
     newArray = array
     for i in range(lockSize):
-        newArray[i] = [0 for _ in range(keySize)] + newArray[i] + [0 for _ in range(keySize)]
-    for _ in range(keySize):
-        newArray.insert(0, [0 for _ in range(lockSize + 2*keySize)])
-        newArray.append([0 for _ in range(lockSize + 2*keySize)])
+        newArray[i] = [0 for _ in range(keySize-1)] + newArray[i] + [0 for _ in range(keySize-1)]
+    for _ in range(keySize-1):
+        newArray.insert(0, [0 for _ in range(lockSize + 2*keySize - 2)])
+        newArray.append([0 for _ in range(lockSize + 2*keySize - 2)])
     return newArray
 
-def rotateArray(array): # 90도 회전
-    length = len(array)
-    newArray = []
-    for i in range(length):
-        temp = []
-        for j in range(length):
-            temp.append(array[length - 1 -j][i])
-        newArray.append(temp)
-    return newArray
+def rotateArray(array):
+    # 90도 회전
+
+    # length = len(array)
+    # newArray = []
+    # for i in range(length):
+    #     temp = []
+    #     for j in range(length):
+    #         temp.append(array[length - 1 -j][i])
+    #     newArray.append(temp)
+    # return newArray
+
+    # -90도 회전
+    return list(zip(*array))[::-1]
+
 
 def isUnlock(key, expendedMap, keySize, lockSize): # key를 놓을 수 있는 모든 위치를 돌며 체크
-    for startX in range(keySize+lockSize):
-        for startY in range(keySize+lockSize):
+    for startX in range(keySize-1 + lockSize):
+        for startY in range(keySize-1 + lockSize):
             temp = deepcopy(expendedMap)
             for i in range(keySize):
                 for j in range(keySize):
@@ -30,7 +36,7 @@ def isUnlock(key, expendedMap, keySize, lockSize): # key를 놓을 수 있는 �
             isUnlocked = True
             for i in range(lockSize):
                 for j in range(lockSize):
-                    if temp[keySize+i][keySize+j] != 1:
+                    if temp[keySize-1 + i][keySize-1 + j] != 1:
                         isUnlocked = False
                         break
                 if isUnlocked == False:
