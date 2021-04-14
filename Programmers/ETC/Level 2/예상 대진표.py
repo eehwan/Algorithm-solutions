@@ -1,7 +1,6 @@
 def solution(n,a,b):
-    answer = 3
-
-    # [실행] 버튼을 누르면 출력 값을 볼 수 있습니다.
-    print('Hello Python')
-
-    return answer
+    iter = 0
+    while a != b:
+        iter += 1
+        a, b = (a+1)//2, (b+1)//2
+    return iter
