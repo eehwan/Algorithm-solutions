@@ -3,6 +3,15 @@ class ListNode:
     def __init__(self, val=0, next=None):
         self.val = val
         self.next = next
+    # def __str__(self):
+    #     result = "ListNode ["
+    #     current = self
+    #     while current:
+    #         if result != "ListNode [":
+    #             result += ", "
+    #         result += str(current.val)
+    #         current = current.next
+    #     return result + "]"
 class Solution:
     def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
         int1 = ""
