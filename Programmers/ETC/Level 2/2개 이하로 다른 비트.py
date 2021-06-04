@@ -13,4 +13,12 @@ def solution(numbers):
             base2 = "".join(base2)
             answer.append(int(base2, 2))
     return answer
+# 비트연산자를 활용한 풀이
+# def solution(numbers):
+#     answer = []
+#     for idx, val in enumerate(numbers):
+#         answer.append(((val ^ (val+1)) >> 2) +val +1)
+
+#     return answer
+
 print(solution([3, 7]))
