@@ -1,28 +1,21 @@
-import re
 def solution(record):
     uid_dict = {}
-    messages = []
+    answer = []
+
     for rec in record:
-        x = rec.split(" ") 
-        comm = x[0].strip()
-        uid = x[1].strip()
-        name = x[2] if len(x) > 2 else ""
+        parts = rec.split()
+        command, uid = parts[0], parts[1]
+        if command in ("Enter", "Change"):
+            uid_dict[uid] = parts[2]
 
-        if comm == "Enter":
-            messages.append(f"{uid}님이 들어왔습니다.")
-        elif comm == "Leave":
-            messages.append(f"{uid}님이 나갔습니다.")
+    for rec in record:
+        parts = rec.split() 
+        command, uid, name = parts[0], parts[1], uid_dict[parts[1]]
 
-        if comm in ["Enter", "Change"]:
-            uid_dict[uid] = name
-
-    pattern = re.compile(r"(.+?)님이 (들어왔습니다|나갔습니다)")
-    def replace_name(match):
-        uid = match.group(1)
-        status = match.group(2)
-        return f"{uid_dict.get(uid, uid)}님이 {status}"
-
-    answer = [pattern.sub(replace_name, msg) for msg in messages]
+        if command == "Enter":
+            answer.append(f"{name}님이 들어왔습니다.")
+        elif command == "Leave":
+            answer.append(f"{name}님이 나갔습니다.")
 
     return answer
 
