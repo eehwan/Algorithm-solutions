@@ -4,7 +4,8 @@ def solution(maps):
     rows, cols = len(maps), len(maps[0])
     visited = defaultdict(bool)
     
-    def dfs(stack, total=0):
+    def dfs(stack):
+        total = 0
         while len(stack) > 0:
             x, y = stack.pop()
             curr = maps[x][y]
@@ -28,9 +29,7 @@ def solution(maps):
                 if total != 0:
                     answer.append(total)
 
-    
-    answer = sorted(answer) or [-1]
-    return answer
+    return sorted(answer) or [-1]
 
 test_case = [
     ["X591X", "X1X5X", "X231X", "1XXX1"],   # [1, 1, 27]
