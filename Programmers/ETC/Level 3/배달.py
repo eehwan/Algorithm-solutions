@@ -1,24 +1,41 @@
-from collections import deque
+from functools import reduce
+from collections import defaultdict
+import heapq
+import sys
+
+def dijkstra(start, n, graph):
+    distances = [sys.maxsize] * (n + 1)
+    distances[start] = 0
+    queue = [(0, start)]
+    
+    while queue:
+        current_dist, current_node = heapq.heappop(queue)
+        
+        if current_dist > distances[current_node]:
+            continue
+        
+        for adjacent, weight in graph[current_node]:
+            distance = current_dist + weight
+            
+            if distance < distances[adjacent]:
+                distances[adjacent] = distance
+                heapq.heappush(queue, (distance, adjacent))
+    
+    return distances
+
 def solution(N, road, K):
-    costs = {i:{} for i in range(1, N+1)}
-    for a,b,c in road:
-        if costs[a].get(b, float('inf')) > c:
-            costs[a][b] = c
-        if costs[b].get(a, float('inf')) > c:
-            costs[b][a] = c
-    costs[1][1] = 0
-    # print("costs", costs)
+    graph = defaultdict(list)
+    for a, b, cost in road:
+        graph[a].append((b, cost))
+        graph[b].append((a, cost))
+        
+    costs = dijkstra(1, N, graph)
+    print(costs)
 
-    que = deque(costs[1].keys())
-    while que:
-        print("que: ", que)
-        current = que.popleft()
-        for next_start in costs.get(current):
-            new_cost = costs[1][current] + costs[current][next_start]
-            # print(f"1 -> {current} -> {next_start}\nnew_cost == {new_cost}")
-            if costs[1].get(next_start, float('inf')) > new_cost:
-                costs[1][next_start] = new_cost
-                que.append(next_start)
-    return sum(1 for s in costs[1].values() if s <= K)
+    return reduce(lambda acc, x: acc + (1 if x <= K else 0), costs, 0)
 
-print(solution(6, [[1, 2, 1], [1, 3, 2], [2, 3, 2], [3, 4, 3], [3, 5, 2], [3, 5, 3], [5, 6, 1]], 4))
+if __name__ == "__main__":
+    test_cases = [
+        [6, [[1, 2, 1], [1, 3, 2], [2, 3, 2], [3, 4, 3], [3, 5, 2], [3, 5, 3], [5, 6, 1]], 4],
+    ]
+    print(*map(lambda x: solution(*x), test_cases), sep="\n")
