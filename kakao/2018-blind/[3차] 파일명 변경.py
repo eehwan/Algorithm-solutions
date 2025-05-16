@@ -1,17 +1,9 @@
+import re
+
 def getMetaData(file):
-    number_begin, number_end = 0, len(file)
-    for i, char in enumerate(file):
-        try:
-            int(char)
-            if not (number_begin):
-                number_begin = i
-        except:
-            if number_begin:
-                number_end = i
-                break
-            
-    print(number_begin, number_end, type(number_begin), type(number_end))
-    return [file[0:number_begin].lower(), int(file[number_begin: number_end])]
+    match = re.match(r'([^\d]+)(\d+)', file)
+    head, number = match.group(1), match.group(2)
+    return (head.lower(), int(number))
 
 def solution(files):
     return sorted(files, key=getMetaData)
