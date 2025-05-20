@@ -1,4 +1,5 @@
 from collections import Counter
+
 def solution(want, number, discount):
     want_counter = Counter({ key: value for key, value in zip(want, number) })
     discount_counter = Counter()
@@ -8,11 +9,8 @@ def solution(want, number, discount):
             discount_counter[discount[i-10]] -= 1
         discount_counter[v] += 1
         
-        for j, key in enumerate(want_counter):
-            if want_counter[key] > discount_counter[key]:
-                break
-            elif j == len(want_counter) - 1:
-                answer += 1
+        if all(discount_counter[key] >= want_counter[key] for key in want_counter):
+            answer += 1
 
     return answer
 
