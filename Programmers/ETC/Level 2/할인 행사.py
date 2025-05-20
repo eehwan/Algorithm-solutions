@@ -1,15 +1,20 @@
 from collections import Counter
 
 def solution(want, number, discount):
-    want_counter = Counter({ key: value for key, value in zip(want, number) })
+    want_counter = dict(zip(want, number))
     discount_counter = Counter()
+
     answer = 0
-    for i, v in enumerate(discount):
+    for i, item in enumerate(discount):
         if (i >= 10):
-            discount_counter[discount[i-10]] -= 1
-        discount_counter[v] += 1
+            old_item = discount[i-10]
+            if (discount_counter[old_item] == 1):
+                discount_counter.pop(old_item)
+            else:
+                discount_counter[discount[i-10]] -= 1
+        discount_counter[item] += 1
         
-        if all(discount_counter[key] >= want_counter[key] for key in want_counter):
+        if discount_counter == want_counter:
             answer += 1
 
     return answer
