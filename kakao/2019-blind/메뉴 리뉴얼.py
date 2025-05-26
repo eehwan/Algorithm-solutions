@@ -1,22 +1,22 @@
 from collections import Counter
 from itertools import combinations
-import math
 
 def solution(orders, course):
     counters = { i: Counter() for i in course }
     for order in orders:
         for i in course:
-            menus = combinations(list(order), i)
-            for menu in menus:
-                counters[i][''.join(sorted(menu))] += 1
+            for menu in combinations(sorted(list(order)), i):
+                counters[i][''.join(menu)] += 1
 
     answer = []
-    for counter in counters:
-        new_list = sorted([(a, b) for a, b in counter.items()], key=lambda x: (-x[1], x[0]))
-        curr = -math.inf
-        for key, v in new_list:
-            if curr <= v and v > 1:
-                curr = v
+    for counter in counters.values():
+        if not counter:
+            continue
+        max_count = max(counter.values())
+        if max_count < 2:
+            continue
+        for key, v in counter.items():
+            if v == max_count:
                 answer.append(key)
     
     return sorted(answer)
