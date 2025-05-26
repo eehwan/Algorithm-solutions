@@ -1,22 +1,21 @@
 from collections import deque
 
 def solution(sequence, k):
+    left = 0
     total = 0
-    queue = deque()
-    index = [0, len(sequence)]
     answer = [0, len(sequence)]
-    for i, value in enumerate(sequence):
-        if (total <= k):
-            total += value
-            index[1] = i
-            queue.append(value)
-        while (total > k):
-            index[0] += 1
-            x = queue.popleft()
-            total -= x
+
+    for right in range(len(sequence)):
+        total += sequence[right]
+
+        while total > k:
+            total -= sequence[left]
+            left += 1
+
         if total == k:
-            if index[1] - index[0] < answer[1] - answer[0]:
-                answer = [index[0], index[1]]
+            if right - left < answer[1] - answer[0]:
+                answer = [left, right]
+
     return answer
 
 if __name__ == "__main__":
