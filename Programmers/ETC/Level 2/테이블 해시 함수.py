@@ -1,10 +1,13 @@
+from functools import reduce
+
 def solution(data, col, row_begin, row_end):
-    data.sort(key = lambda x: (x[col - 1], -x[0]))
-    answer = 0
-    for i in range(row_begin, row_end + 1):
-        answer ^= sum(x % i for x in data[i - 1])
-    
-    return answer
+    data.sort(key=lambda x: (x[col - 1], -x[0]))
+
+    return reduce(
+        lambda acc, x: acc ^ x,
+        [sum(val % i for val in data[i - 1]) for i in range(row_begin, row_end + 1)],
+        0
+    )
 
 
 if __name__ == "__main__":
