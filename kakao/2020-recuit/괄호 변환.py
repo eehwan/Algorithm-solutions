@@ -10,8 +10,8 @@ def solution(p):
 
                 if cnt < 0:
                     return False
-                if cnt == 0 and len(x) - 1 == i:
-                    return True
+            if cnt == 0:
+                return True
 
         return False
     
@@ -28,9 +28,12 @@ def solution(p):
 
                 if cnt == 0:
                     a, b = x[:i + 1], x[i + 1:]
-                    if not isCorrect(a):
-                        a = "(" + a[1:][:-1].replace("(", ":").replace(")", "(").replace(":", ")") + ")"
-                    return a + change(b)
+                    
+                    if isCorrect(a):
+                        return a + change(b)
+                    else:
+                        a = a[1:][:-1].replace("(", ":").replace(")", "(").replace(":", ")")
+                        return f'({change(b)}){a}'
 
     return change(p)
 
