@@ -1,5 +1,15 @@
+from collections import Counter
+
 def solution(k, tangerine):
+    counter = Counter(tangerine)
+    
     answer = 0
+    for v in sorted(counter.values(), reverse=True):
+        k -= v
+        answer += 1
+        if k < 1:
+            break
+
     return answer
 
 if __name__ == "__main__":
