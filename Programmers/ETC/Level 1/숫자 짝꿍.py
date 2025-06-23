@@ -1,7 +1,11 @@
-def solution(X, Y):
-    answer = ''
-    return answer
+from collections import Counter
 
+def solution(X, Y):
+    counter = Counter(X) & Counter(Y)
+    sorted_counter = sorted(counter.elements(), reverse=True)
+    
+    answer = int("".join(sorted_counter)) if sorted_counter else -1
+    return str(answer)
 
 if __name__ == "__main__":
     test_cases = [
