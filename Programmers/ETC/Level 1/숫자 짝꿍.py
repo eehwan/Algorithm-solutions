@@ -2,10 +2,20 @@ from collections import Counter
 
 def solution(X, Y):
     counter = Counter(X) & Counter(Y)
-    sorted_counter = sorted(counter.elements(), reverse=True)
     
-    answer = int("".join(sorted_counter)) if sorted_counter else -1
-    return str(answer)
+    result = []
+    for char in map(str, range(9, -1, -1)):
+        count = counter[char]
+        if (count > 0):
+            result.append(char * count)
+
+    answer = "".join(result)
+    if answer == "":
+        answer = "-1"
+    if answer[0] == "0":
+        answer = "0"
+    return answer
+
 
 if __name__ == "__main__":
     test_cases = [
