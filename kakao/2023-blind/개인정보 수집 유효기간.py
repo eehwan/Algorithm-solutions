@@ -1,18 +1,18 @@
 def solution(today, terms, privacies):
-    def parse2day(y, m, d):
+    def date2days(y, m, d):
         return (y * 12 + m) * 28 + d
     
-    today_total = parse2day(*map(int, today.split('.')))
-    terms_dict = { x.split(' ')[0]: int(x.split(' ')[1]) for x in terms }
+    today_in_days  = date2days(*map(int, today.split('.')))
+    terms_dict = { x: int(y) for x, y in (term.split() for term in terms) }
     
     answer = []
     for i, privacy in enumerate(privacies):
-        curr_date, curr_type = privacy.split(' ')
-        d = terms_dict[curr_type]
-        a, b, c = map(int, curr_date.split('.'))
+        date_str, term_type  = privacy.split(' ')
+        year, month, day = map(int, date_str.split('.'))
+        valid_months = terms_dict[term_type ]
 
-        curr_total = parse2day(a, b + d, c)
-        if (today_total >= curr_total):
+        expiry_in_days = date2days(year, month + valid_months, day)
+        if (today_in_days >= expiry_in_days):
             answer.append(i + 1)
     return answer
 
