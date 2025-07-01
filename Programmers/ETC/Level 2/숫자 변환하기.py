@@ -1,26 +1,26 @@
 from collections import deque
 
 def solution(x, y, n):
-    queue = deque()
     if x == y:
         return 0
-    visited = { x : 0 }
-    queue.append(x)
+
+    queue = deque([x])
+    visited = {x: 0}
 
     while queue:
-        curr = queue.popleft()
-        iter = visited[curr]
-        next_items = [curr + n, curr * 2, curr * 3]
-        for next in next_items:
-            if next in visited:
-                continue
-            if next == y:
-                return iter + 1
-            elif next > y:
+        cur = queue.popleft()
+        steps = visited[cur]
+
+        nexts = [cur + n, cur * 2, cur * 3]
+        for nxt in nexts:
+            if nxt == y:
+                return steps + 1
+            if nxt > y or nxt in visited:
                 continue
 
-            queue.append(next)
-            visited[next] = iter + 1
+            visited[nxt] = steps + 1
+            queue.append(nxt)
+
     return -1
     
 
