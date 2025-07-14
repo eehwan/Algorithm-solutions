@@ -1,4 +1,9 @@
 def solution(price, money, count):
-    answer = -1
+    return max(0, (price * count * (count + 1) // 2) - money)
 
-    return answer
+if __name__ == "__main__":
+    test_cases = [
+        [3, 20, 4],        # 10
+        [5, 20, 4],        # 10
+    ]
+    print(*map(lambda x: solution(*x), test_cases), sep="\n")
