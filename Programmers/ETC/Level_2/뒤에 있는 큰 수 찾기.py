@@ -1,16 +1,11 @@
 def solution(numbers):
     answer = []
-    queue = []
+    stack = []
     for num in numbers[::-1]:
-        curr = -1
-        while queue:
-            _curr = queue.pop()
-            if num < _curr:
-                queue.append(_curr)
-                curr = _curr
-                break
-        queue.append(num)
-        answer.append(curr)
+        while stack and stack[-1] <= num:
+            stack.pop()
+        answer.append(stack[-1] if stack else -1)
+        stack.append(num)
     return answer[::-1]
 
 if __name__ == "__main__":
