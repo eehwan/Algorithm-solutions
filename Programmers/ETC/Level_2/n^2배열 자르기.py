@@ -2,10 +2,7 @@ def solution(n, left, right):
     answer = []
     for i in range(left, right + 1):
         x, y = divmod(i, n)
-        if (y <= x):
-            answer.append(x + 1)
-        else:
-            answer.append(y + 1)
+        answer.append(max(x, y) + 1)
     return answer
 
 
