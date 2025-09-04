@@ -1,3 +1,6 @@
+import sys
+sys.setrecursionlimit(100000)
+
 def solution(total_sp, skills):
     child_map, parent_map, point_map = {}, {}, {}
     for i in range(len(skills) + 1):
@@ -21,8 +24,8 @@ def solution(total_sp, skills):
     dfs(*filter(lambda x: len(parent_map[x]) == 0, parent_map))
 
     multiple = total_sp / sum(point_map.values())
-    answer = list(map(lambda x: multiple * x, [point_map[k] for k in sorted(point_map)]))
-    # print(point_map, sum(point_map.values()))
+    answer = list(map(lambda x: multiple * x, [point_map[k] for k in sorted(point_map, key=lambda x: int(x))]))
+
     return answer
 
 if __name__ == "__main__":
@@ -33,7 +36,9 @@ if __name__ == "__main__":
         print("✅ All PASSED")
 
     cases = [
-        (([2, 3, 3, 5],), [3, 5, 5, -1]),
-        (([9, 1, 5, 3, 6, 2],), [-1, 5, 6, 6, -1, -1]),
+        ((12, [[1,2]],), [6, 6]),
+        ((14, [[1,2], [2,3], [2,4], [2,5], [5,6], [5,7]]), [4, 4, 1, 1, 2, 1, 1]),
+        ((16, [[1,2], [2,3], [3,4], [4, 5], [5,6], [6,7], [7, 8], [1,9], [1,10], [10, 11], [10, 12]]), [4, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1]),
+        (( 1501, [[i, i+1] for i in range(1, 1501)]), [1]*1501),
     ]
     assert_cases(solution, cases)
