@@ -8,6 +8,18 @@ def solution(numbers):
         stack.append(num)
     return answer[::-1]
 
+def solution2(numbers):
+    stack = []
+    result = [-1] * len(numbers)
+    for i in range(len(numbers)):
+        while stack and numbers[stack[-1]] < numbers[i]:
+            result[stack.pop()] = numbers[i]
+
+        stack.append(i)
+
+    return result
+
+
 if __name__ == "__main__":
     def assert_cases(func, cases):
         for i, (args, expected) in enumerate(cases, 1):
